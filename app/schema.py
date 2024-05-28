@@ -74,11 +74,11 @@ class DeleteMovie(graphene.Mutation):
     def mutate(root, info, id):
         movie = db.session.get(MovieModel, id)         
         if not movie:
-            return "That movie does not exist"
+            return DeleteMovie(message="That movie does not exist")
         else:
             db.session.delete(movie)
             db.session.commit()
-            return "Success"
+            return DeleteMovie(message="Success")
 
 class Mutation(graphene.ObjectType):
     create_movie = AddMovie.Field()
